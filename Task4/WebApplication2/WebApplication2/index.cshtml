@@ -1,0 +1,73 @@
+﻿<!--
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 4
+-->
+@using WebMatrix.Data;
+
+@{
+    var db = Database.Open("Bookshop");
+    Validation.RequireField("username", "Username is required.");
+    Validation.RequireField("password", "Password is required.");
+
+    var username = Request.Form["username"];
+    var password = Request.Form["password"];
+
+    var result = "";
+    var userQuery = "SELECT COUNT(*) FROM ACCOUNT WHERE Username = @0 AND Pword = @1";
+
+    var user = db.QueryValue(userQuery, username, password);
+
+    if (user == 0)
+    {
+        result = "There is no such user.";
+    }
+    else
+    {
+        Session[username] = username;
+        Response.Redirect("~/task4.cshtml");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title> LightBulb Trolley Bookhop Singapore </title>
+    <link rel="stylesheet" href="task4.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="banner">
+            <img src="images/banner.jpg" alt="banner" height="200" width="1285">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="logo" height="70" width="80">
+                LightBulb Trolley Bookshop
+            </div>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <b>Would you like to?</b>
+                </td>
+                <td>
+                    <b>Would you like to?</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="loin"><a href="login.cshtml"/><b> LOGIN </b></a></button>
+                </td>
+                <td>
+                    <button id="register"><a href="register.cshtml"/><b>REGISTER</b></a></button>
+                </td>
+            </tr>
+        </table>
+       
+        <div class="footer">
+            <br><br>2018 &copy LightBulb Trolley figurehop Pte. Ltd. (incorporated in Singapore). Thank you for supporting local business.
+        </div>
+    </div>
+</body>
+</html>

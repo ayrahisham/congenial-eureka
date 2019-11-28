@@ -1,0 +1,225 @@
+﻿<!--
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 3
+-->
+@{
+    var result = "";
+    Array votes = null;
+    var total = 0;
+
+    var dataFile = Server.MapPath("votes.txt");
+
+    if (File.Exists(dataFile))
+    {
+        votes = File.ReadAllLines(dataFile);
+        if (votes == null)
+        {
+            // Empty file.
+            result = "The file is empty";
+        }
+    }
+
+    var index = 0;
+    var v1 = "";
+    var v2 = "";
+    var v3 = "";
+    var v4 = "";
+    foreach (string dataItem in votes)
+    {
+        switch (index)
+        {
+            case 0:
+                v1 = dataItem;
+                break;
+            case 1:
+                v2 = dataItem;
+                break;
+            case 2:
+                v3 = dataItem;
+                break;
+            case 3:
+                v4 = dataItem;
+                break;
+        }
+        total += dataItem.AsInt();
+        ++index;
+    }
+
+    if (IsPost)
+    {
+        var cname = Request["candidate"];
+
+        var data = "";
+        var c = 0;
+        if (cname == "1")
+        {
+            c = v1.AsInt();
+            c += 1;
+            data = c + Environment.NewLine +
+                v2 + Environment.NewLine +
+            v3 + Environment.NewLine +
+            v4;
+
+            File.WriteAllText(@dataFile, data);
+            result = "Vote has been cast";
+        }
+        else if (cname == "2")
+        {
+            c = v2.AsInt();
+            c += 1;
+            data = v1 + Environment.NewLine +
+                c + Environment.NewLine +
+            v3 + Environment.NewLine +
+            v4;
+
+            File.WriteAllText(@dataFile, data);
+            result = "Vote has been cast";
+        }
+        else if (cname == "3")
+        {
+            c = v3.AsInt();
+            c += 1;
+            data = v1 + Environment.NewLine +
+                v2 + Environment.NewLine +
+            c + Environment.NewLine +
+            v4;
+
+            File.WriteAllText(@dataFile, data);
+            result = "Vote has been cast";
+        }
+        else if (cname == "4")
+        {
+            c = v4.AsInt();
+            c += 1;
+            data = v1 + Environment.NewLine +
+                v2 + Environment.NewLine +
+            v3 + Environment.NewLine +
+            c;
+
+            File.WriteAllText(@dataFile, data);
+            result = "Vote has been cast";
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title> Task 3 </title>
+    <link rel="stylesheet" href="task3.css">
+</head>
+<body>
+    <div class="background">
+        <div class="banner">
+            <img src="images/banner1.jpg" alt="banner" height="280" width="1285">
+            P5 Head Prefect Election
+        </div>
+        <div class="promo">
+            Purpose: To give the school a voice in voting for the Head Prefect
+        </div>
+
+        <form id="election" method="post">
+            <table>
+                <tr>
+                    @{ <td>Total No. of Votes:</td>
+                       <td colspan=3><p id="totalVotes"><b>@total</b></p></td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <select name="candidate">
+                            <option value="">Vote for your candidate</option>
+                            <option value="1">Candidate 1: Mr Yamagashi</option>
+                            <option value="2">Candidate 2: Mr Arnold Patty</option>
+                            <option value="3">Candidate 3: Mr Joy Tweegy</option>
+                            <option value="4">Candidate 4: Miss Lily Whitehouse</option>
+                        </select>
+                        <input type="submit" value="Vote" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <u>Mr Yamagashi:</u>
+                    </td>
+                    <td>
+                        <u>Mr Arnold Patty:</u>
+                    </td>
+                    <td>
+                        <u>Mr Joy Tweegy:</u>
+                    </td>
+                    <td>
+                        <u>Miss Lily Whitehouse:</u>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/c1.jpg" alt="banner" height="280" width="285" />
+                    </td>
+                    <td>
+                        <img src="images/c2.jpg" alt="banner" height="280" width="285" />
+                    </td>
+                    <td>
+                        <img src="images/c3.jpg" alt="banner" height="280" width="285" />
+                    </td>
+                    <td>
+                        <img src="images/c4.jpg" alt="banner" height="280" width="285" />
+                    </td>
+                </tr>
+                <tr>
+                    @{
+                        
+                            var i = 0;
+                            // reading data from file
+                            foreach (string dataItem in votes)
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        <td><b>Candidate @(i + 1)</b><br>Vote Count:<p id="c1"><b>@v1</b></p></td>
+                                        break;
+                                    case 1:
+                                        <td><b>Candidate @(i + 1)</b><br>Vote Count:<p id="c2"><b>@v2</b></p></td>
+                                        break;
+                                    case 2:
+                                        <td><b>Candidate @(i + 1)</b><br>Vote Count:<p id="c3"><b>@v3</b></p></td>
+                                        break;
+                                    case 3:
+                                        <td><b>Candidate @(i + 1)</b><br>Vote Count:<p id="c4"><b>@v4</b></p></td>
+                                        break;
+                                }
+                                i++;
+                            }
+                        
+                    }
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @{ if (result != "")
+                            {
+                                <p><b>@result</b></p>
+                            }
+                         }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=4>
+                        The P5 Head Prefect Election is an opportunity for the student voice to be heard.
+                        At the beginning of each year, P5 prefects interested to run for the election go
+                        through a process of nomination and interview to be selected to be one of three
+                        candidates to run for the election. The three candidates will then give their
+                        campaign speeches in front of the whole school and run a week-long campaign for
+                        everyone in school to get to know them and decide on who they will vote for.
+                        On election day, all the teaching staff and students were given the right to
+                        vote for their choice of the Head Prefect.
+                    <td>
+                <tr>
+            </table>
+        </form>
+        <div class="footer">
+            <br><br>2019 &copy Thank you for your vote.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!-- 
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 2
+-->
+
+<!DOCTYPE html>
+<html>
+	<head lang = "en">
+		<meta charset = "utf-8">
+		<title> Task 2 </title>
+		<link rel = "stylesheet" href = "task2.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script>
+			$(document).ready(function()
+			{
+				// Set global variables
+				var currCat = 0;
+				var cats, size;
+				var state = 0;
+				// Build array of cats
+				cats = ["images/cat1.jpg", "images/cat2.jpg", "images/cat3.jpg"];
+				size = cats.length;
+
+				// Advance the cat by one
+				// reset counter to 0 if it reaches 3; otherwise increment by 1
+				function cycleCats(min, max)
+				{
+					do
+					{
+						currCat = Math.floor (size * Math.random ());
+					} while (state == currCat);
+					
+					state = currCat;
+					// store each index of array belonging to each cat respectively
+					catlinks = ["\"https://catsmart.com.sg/\"", "\"https://www.polypet.com.sg/\"", "\"https://www.superpets.sg/\""];
+						
+					// set cat to new cat from array
+					document.getElementById("random").innerHTML = "<a href = " + catlinks [state] + "><img src = " + cats[state] + " alt = cats width = 500 height = 300/></a>";
+				}
+				
+				$(function ()
+				{
+					setInterval(function()
+					{ // create an interval (loop)
+						cycleCats();
+					}, 2000);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class = "background">
+			<div class = "banner">
+				<img src = "images/banner1.jpg" alt = "banner" height = "250" width = "1285">
+				My Kitty Kat Shop
+			</div>
+			<div class = "promo">
+				The Cat Connection offers the widest selection of premium & 
+				natural cat products online, from organic catnip to toys and grooming supplies. 
+				Free shipping.
+			</div>
+			<table>
+				<tr>
+					<td colspan = 2>
+					<b><u>Task 2</u></b>
+					<td>
+				<tr>
+				<tr>
+					<td>
+						Nevertheless, adopting a cat from a shelter is definitely cheaper than 
+						buying from a pet shop. What's more, by adopting, you are giving a second
+						chance at life to ... 
+					<td>
+					<td>
+						<div id = "random"></div>
+					</td>
+				</tr>
+			</table>
+		
+			<div class = "footer">
+				<br><br>2019 &copy Thank you for caring towards animals.
+			</div>
+		</div>
+	</body>
+</html>

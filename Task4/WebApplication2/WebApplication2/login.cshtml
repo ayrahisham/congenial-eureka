@@ -1,0 +1,112 @@
+﻿<!--
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 4
+-->
+@using WebMatrix.Data;
+
+@{
+    var db = Database.Open("Bookshop");
+
+    var result = "";
+    var username = Request.Form["username"];
+    var password = Request.Form["password"];
+    var user = 0;
+
+    if (IsPost)
+    {
+        var query = "SELECT COUNT (*) FROM ACCOUNT WHERE Username = @0 AND Pword = @1";
+
+        user = db.QueryValue(query, username, password);
+
+        if (user == 0)
+        {
+            result = "Sorry, there is no such user. Try again!";
+        }
+        else
+        {
+            Session["UserId"] = username;
+            Response.Redirect("task4.cshtml");
+        }
+
+    }
+
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title> LightBulb Trolley Bookhop Singapore </title>
+    <link rel="stylesheet" href="task4.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="banner">
+            <img src="images/banner.jpg" alt="banner" height="200" width="1285">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="logo" height="70" width="80">
+                LightBulb Trolley Bookshop
+            </div>
+        </div>
+        <button><a href="index.cshtml"><b> BACK </b></a></button>
+        <form method="post" action="" id="loginform">
+            <fieldset>
+                <legend>
+                    <b>USER LOGIN</b>
+                </legend>
+                <div>
+                    <label>
+                        <b><i> USERNAME:* </i></b>
+                    </label>
+                    <input name="username" type="text" required size="20" value="@username">
+                </div>
+                <div>
+                    <label>
+                        <b><i> PASSWORD:* </i></b>
+                    </label>
+                    <input name="password" type="password" required size="20" value="@password">
+                </div>
+                <div>
+                    <i> * mandatory fields </i>
+                    <input type="submit" value="Login" class="submit" />
+                </div>
+            </fieldset>
+        </form>
+        <div>
+            @{ if (@result != "")
+                {
+                    <p><b>@result</b></p>
+                }
+            }
+        </div>
+        <div class="footer">
+            <br><br>2018 &copy LightBulb Trolley figurehop Pte. Ltd. (incorporated in Singapore). Thank you for supporting local business.
+            <br><i>USERNAME:</i><b> <u>12345</u> </b>   <i>PASSWORD:</i><b> <u>pass12345</u> </b>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $(".login").click(function () {
+
+                var user = document.forms["loginform"]["username"].value;
+                var pwd = document.forms["loginform"]["password"].value;
+
+                var ok = true;
+
+                if (user === "") {
+                    alert("Please enter your username");
+                    ok = false;
+                }
+
+                if (pwd === "") {
+                    alert("Please enter your password");
+                    ok = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

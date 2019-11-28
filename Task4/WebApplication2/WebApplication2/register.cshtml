@@ -1,0 +1,119 @@
+﻿<!--
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 4
+-->
+@using WebMatrix.Data;
+
+@{
+    var db = Database.Open("Bookshop");
+    Validation.RequireField("username", "Username is required.");
+    Validation.RequireField("password", "Password is required.");
+    var result = "";
+    var username = Request.Form["username"];
+    var password = Request.Form["password"];
+
+    if (IsPost && Validation.IsValid())
+    {
+        // Define the insert query. The values to assign to the
+        // columns in the Product table are defined as parameters
+        // with the VALUES keyword.
+        if (ModelState.IsValid)
+        {
+            var checkQuery = "SELECT COUNT (*) FROM ACCOUNT WHERE Username = @0";
+            var user = db.QueryValue(checkQuery, username);
+
+            if (user == 1)
+            {
+                result = "Username has already existed. Please key in another username.";
+            }
+            else
+            {
+                var insertQuery = "INSERT INTO ACCOUNT (Username, Pword) " +
+            "VALUES (@0, @1)";
+                db.Execute(insertQuery, username, password);
+                // Display the page that lists products.
+                Session["UserId"] = username;
+                Response.Redirect("task4.cshtml");
+            }
+
+        }
+    }
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title> LightBulb Trolley Bookhop Singapore </title>
+    <link rel="stylesheet" href="task4.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="banner">
+            <img src="images/banner.jpg" alt="banner" height="200" width="1285">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="logo" height="70" width="80">
+                LightBulb Trolley Bookshop
+            </div>
+        </div>
+        <button><a href="index.cshtml"><b> BACK </b></a></button>
+            <form method="post" action ="" id="registerform">
+                <fieldset>
+                    <legend>
+                        <b>REGISTER NEW ACCOUNT</b>
+                    </legend>
+                    <div>
+                        <label>
+                            <b><i> USERNAME:* </i></b>
+                        </label>
+                        <input type="text" name="username" required size="20">
+                    </div>
+                    <div>
+                        <label>
+                            <b><i> PASSWORD:* </i></b>
+                        </label>
+                        <input type="password" name="password" required size="20">
+                    </div>
+                    <div>
+                        <i> * mandatory fields </i>
+                        <input type="submit" value="Register" class="register" />
+                    </div>
+                </fieldset>
+            </form>
+            <div>
+                @{ if (result != "")
+                    {
+                        <p><b>@result</b></p>
+                    }
+                }
+            </div>
+            <div class="footer">
+                <br><br>2018 &copy LightBulb Trolley figurehop Pte. Ltd. (incorporated in Singapore). Thank you for supporting local business.
+            </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $(".register").click(function () {
+
+                var user = document.forms["registerform"]["username"].value;
+                var pwd = document.forms["registerform"]["password"].value;
+
+                var ok = true;
+
+                if (user === "") {
+                    alert("Please enter a username");
+                    ok = false;
+                }
+
+                if (pwd === "") {
+                    alert("Please enter a password");
+                    ok = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

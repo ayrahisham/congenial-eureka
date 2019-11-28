@@ -1,0 +1,70 @@
+/*
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 1
+*/
+
+/* body */
+.background
+{
+	background-color: #77dd77;
+}
+
+/* web banner */
+.banner 
+{ 
+	font-weight: bold;
+	font-style: italic; 
+	font-family: lucida; 
+	font-size: 50px;
+	background-color: brown;
+	text-align: center;
+}
+
+/* promo */
+.promo
+{  
+	font-family: lucida; 
+	font-size: 20px;
+	text-align: center;
+	background-color: black;
+	color: white;
+}
+
+table
+{
+	text-align: center;
+}
+
+td
+{
+	font-style: italic;
+	font-size: 30px;
+	font-style: comic sans;
+}
+
+#record
+{
+	text-align: center;
+	font-style: sans serif;
+	font-size: 25px;
+	color: black;
+	background-color: yellow;
+}
+
+#linda
+{
+	text-align: center;
+	font-style: sans serif;
+	font-size: 25px;
+	color: white;
+	background-color: red;
+}
+
+/* footer */
+.footer
+{
+	font-style: comic sans;
+	font-size: 20px;
+	text-align: center;
+}

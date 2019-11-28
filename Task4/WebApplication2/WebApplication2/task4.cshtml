@@ -1,0 +1,240 @@
+﻿<!--
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 4
+-->
+@using WebMatrix.Data;
+
+@{
+    var db = Database.Open("Bookshop");
+    var query = "SELECT * FROM Book ORDER BY Title";
+}
+
+<!DOCTYPE html> 
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title> LightBulb Trolley Bookhop Singapore </title>
+    <link rel="stylesheet" href="task4.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="banner">
+            <img src="images/banner.jpg" alt="banner" height="200" width="1285">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="logo" height="70" width="80">
+                LightBulb Trolley Bookshop
+            </div>
+        </div>
+        <div class="promo">
+            FEBRUARY 2019 - BROWSE OVER 4000 CATEGORIES - HAPPY NEW YEAR!
+        </div>
+        <button><a href="index.cshtml"><b> LOG OUT </b></a></button>
+        @if (Session["UserId"] != null)
+        {
+            <h1>Hello, @Session["UserId"]</h1>
+        }
+        <h1> List of Books Available </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th> Book Id </th>
+                    <th> ISBN10 </th>
+                    <th> ISBN13 </th>
+                    <th> Title</th>
+                    <th> Copyright Year </th>
+                    <th> Category ID </th>
+                    <th> Production Status ID </th>
+                    <th> Description </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in db.Query(query))
+                {
+                    <tr>
+                        <td> @row.Id</td>
+                        <td> @row.ISBN10 </td>
+                        <td> @row.ISBN13 </td>
+                        <td> @row.Title</td>
+                        <td> @row.CopyrightYear </td>
+                        <td> @row.CategoryID </td>
+                        <td> @row.ProductionStatusID </td>
+                        <td> @row.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <table>
+            <tr>
+                <th colspan=4><p id="weekly"><b>WEEKLY BEST SELLERS</b></p></th>
+            </tr>
+            <tr>
+                <td>
+                    <figure>
+                        <img src="images/book1.jpg" alt="The Travelling Cat Chronicles">
+                    </figure>
+                    <br> by <a href="#hiroarikawa"> Hiro Arikawa </a><br>
+                    Published by <b> Transworld Publishers Ltd </b><br>
+                    <u> ISBN 9780857524195 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book2.jpg" alt="Killing Commendatore">
+                    </figure>
+                    <br> by <a href="#harukimurakami"> Haruki Murakami </a><br>
+                    Published by <b> Vintage Publishing </b><br>
+                    <u> ISBN 9781787300194 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book3.jpg" alt="The Alchemist">
+                    </figure>
+                    <br> by <a href="#kevinkwan"> Paulo Coelho </a><br>
+                    Published by <b> Harpercollins Publishers </b><br>
+                    <u> ISBN 9780007155668 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book4.jpg" alt="Fantastic Beasts: The Crimes Of Grindelwald">
+                    </figure>
+                    <br> by <a href="#jkrowling"> J.K. Rowling </a><br>
+                    Published by <b> Brown Book Group </b><br>
+                    <u> ISBN 9781408711705 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+            </tr>
+            <tr>
+                <th colspan=4><p id="monthly"><b> MONTHLY BEST SELLERS</b></p></th>
+            </tr>
+            <tr>
+                <td>
+                    <figure>
+                        <img src="images/book5.jpg" alt="Fire And Blood">
+                    </figure>
+                    <br> by <a href="#georgerrmartin"> George R. R. Martin </a><br>
+                    Published by <b> HarperCollinsg </b><br>
+                    <u> ISBN 9780008307738 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book6.jpg" alt="Past Tense">
+                    </figure>
+                    <br> by <a href="#leechild"> Lee Child </a><br>
+                    Published by <b> Bantam Press </b><br>
+                    <u> ISBN 9780593078204 </u><br>
+                    <button class="readbtn"><a href=#><b> READ MORE </b></a></button>
+                    <button class="buybtn"><a href=#><b> ADD TO CART </b></a></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book7.jpg" alt="Past Tense">
+                    </figure>
+                    <br> by <a href="#markuszusak"> Markus Zusak </a><br>
+                    Published by <b> Transworld Publishers Ltd </b><br>
+                    <u> ISBN 9780857525956 </u><br>
+                    <button class="readbtn"><b> READ MORE </b></button>
+                    <button class="buybtn"><b> ADD TO CART </b></button>
+                </td>
+                <td>
+                    <figure>
+                        <img src="images/book8.jpg" alt="Past Tense">
+                    </figure>
+                    <br> by <a href="#johngrisham"> John Grisham </a><br>
+                    Published by <b> Hodder & Stoughton </b><br>
+                    <u> ISBN 9781473684386 </u><br>
+                    <button class="readbtn"><b> READ MORE </b></button>
+                    <button class="buybtn"><b> ADD TO CART </b></button>
+                </td>
+            </tr>
+        </table>
+        <div class="footer">
+            <br><br>2018 &copy LightBulb Trolley figurehop Pte. Ltd. (incorporated in Singapore). Thank you for supporting local business.
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $(".add").click(function () {
+                var id = document.forms["addform"]["Id"].value;
+                var cat = document.forms["addform"]["Category"].value;
+                var status = document.forms["addform"]["Status"].value;
+
+                var ok = true;
+
+                var numbers = /^\d+$/;
+                if (id === "") {
+                    alert("Please enter your Book Id");
+                    ok = false;
+                }
+                else {
+                    if (!id.match(numbers)) {
+                        alert("Only numbers are allowed in Book Id");
+                        ok = false;
+                    }
+                }
+
+                if (cat === "") {
+                    alert("Please enter your Book Category");
+                    ok = false;
+                }
+                else {
+                    if (!cat.match(numbers)) {
+                        alert("Only numbers are allowed in Category Id");
+                        ok = false;
+                    }
+                }
+
+                if (status === "") {
+                    alert("Please enter your Production Status");
+                    ok = false;
+                }
+                else {
+                    if (!status.match(numbers)) {
+                        alert("Only numbers are allowed in Production Status");
+                        ok = false;
+                    }
+                }
+            });
+
+            // 1. Highlight color to books in td
+            $("td").mouseover(function (c) {
+                $(this).css("cursor", "pointer");
+            });
+
+            $("td").click(function (c) {
+                $("td").removeClass("highlight");
+                var selectedcell = $(c.target).closest("td");
+                selectedcell.addClass("highlight");
+            });
+
+            // 2. Draggable of image books
+            $("figure").draggable();
+
+            // 3. Toggling images with effects
+            $(".buybtn").click(function () {
+                $("figure").toggle("pulsate", 500);;
+
+            });
+
+            // 4. Using animation for figure images (walking)
+            $(".readbtn").click(function () {
+                $("figure").animate({ left: "-=700" }, 5000);
+                $("figure").animate({ left: "+=700" }, 5000);
+
+            });
+        });
+    </script>
+</body>
+</html>

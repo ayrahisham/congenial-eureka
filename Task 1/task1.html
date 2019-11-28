@@ -1,0 +1,110 @@
+<!-- 
+Name: Nur Suhaira Bte Badrul Hisham
+UOW ID: 5841549
+Assignment 3 Task 1
+-->
+
+<!DOCTYPE html>
+<html>
+	<head lang = "en">
+		<meta charset = "utf-8">
+		<title> Task 1 </title>
+		<link rel = "stylesheet" href = "task1.css">
+	</head>
+	<body>
+		<div class = "background">
+			<div class = "banner">
+				<img src = "images/banner1.jpg" alt = "banner" height = "250" width = "1285">
+				Employees' Records
+			</div>
+			<div class = "promo">
+				[CONFIDENTIAL] - AS AT 01 FEBRUARY 2019
+			</div>
+			<p><u>Task 1b</u></p>
+			<div id = "record"></div>
+			<p><u>Task 1c</u></p>
+			<div id = "linda"></div>
+			<div class = "footer">
+				<br><br>2019 &copy Thank you for using the HR system.
+			</div>
+		</div>
+	</body>
+	<script>
+		// employees' array of data
+		var employees = [
+			{"Name": "Tony", "Mobile": "99221111", "Email": "tony@json.com"}, 
+			{"Name": "Linda", "Mobile": "989811111", "Email": "linda@json.com"},
+			{"Name": "Patrick", "Email": "patrick@json.com"},
+			{"Name": "Isabella", "Mobile": "99552222"}
+		];
+		
+		var record = "<table>" +
+					 "<tr>" +
+					 "<th>Employee ID</th>" +
+					 "<th>Name</th>" +
+					 "<th>Mobile</th>" +
+					 "<th>Email</th>" +
+					 "</tr>";
+		var id = 20190001;
+		var i = 0;
+		for (i in employees)	
+		{
+			if (i < 2)
+			{
+				record += "<tr>" +
+						  "<td>" + id + parseInt (i) + "</td>" +
+						  "<td>" + employees[i].Name + "</td>" +
+						  "<td>" + employees[i].Mobile + "</td>" +
+						  "<td>" + employees[i].Email + "</td>" +
+						  "</tr>";	
+			}
+			else if (i == 2)
+			{
+				record += "<tr>" +
+						  "<td>" + id + parseInt (i) + "</td>" +
+						  "<td>" + employees[i].Name + "</td>" +
+						  "<td> - </td>" +
+						  "<td>" + employees[i].Email + "</td>" +
+						  "</tr>";	
+			}
+			else
+			{
+				record += "<tr>" +
+						  "<td>" + id + parseInt (i) + "</td>" +
+						  "<td>" + employees[i].Name + "</td>" +
+						  "<td>" + employees[i].Mobile + "</td>" +
+						  "<td> - </td>" +
+						  "</tr>";
+			}
+		}
+		record += "</table>";
+		
+		// display records
+		document.getElementById("record").innerHTML = record;
+		
+		var j = 0;
+		var newLinda = "<table>" +
+					   "<tr>" +
+					   "<th>Employee ID</th>" +
+					   "<th>Name</th>" +
+					   "<th>Mobile</th>" +
+					   "<th>Email</th>" +
+					   "</tr>";
+		for (j in employees)
+		{
+			if (employees[j].Name == "Linda")
+			{
+				employees[j].Mobile = "88885555";
+				newLinda += "<tr>" +
+						   "<td>" + id + parseInt (j) + "</td>" + 
+						   "<td>" + employees[j].Name + "</td>" +
+						   "<td>" + employees[j].Mobile + "</td>" +
+						   "<td>" + employees[j].Email + "</td>" +
+						   "</tr>";
+			}
+		}
+		newLinda += "</table>";
+		document.getElementById ("linda").innerHTML = newLinda;
+		
+	</script>
+</html>
